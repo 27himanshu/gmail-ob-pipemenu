@@ -64,11 +64,11 @@ except imaplib.IMAP4.error:
 print(result, data)
 
 result, mailboxes = Mail.list()
-
+"""
 if result == 'OK':
     print("List of Mail Boxes:")
     print(mailboxes)
-
+"""
 result, data = Mail.select(FOLDER, readonly=True)
 if result == 'OK':
     print("Processing mailbox")
