@@ -7,7 +7,10 @@ CACHE_FILE=".ob-cache-gmail"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 COMPLIMENT="ob-fetch-gmail.py"
 mailfile="${DIR}/${CACHE_FILE}"
+SCRIPT=$(realpath $0)
+SCRIPTPATH=$(dirname $SCRIPT)
 
+#
 # readlines function
 # Reads N lines from input, keeping further lines in the input.
 #
@@ -18,6 +21,7 @@ mailfile="${DIR}/${CACHE_FILE}"
 #   0 if at least one line was read.
 #   1 if input is empty.
 # Thanks to albarji's answer on a stackoverflow question: http://http://stackoverflow.com/questions/8314499/read-n-lines-at-a-time-using-bash
+#
 
 function readlines () {
     local N="$1"
@@ -44,18 +48,23 @@ function readlines () {
 # End of readlines function
 
 read -r UNREAD<$mailfile
+if [ "$UNREAD" == "" ]
+then
+    UNREAD="Refreshing..."
+fi
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 echo "<openbox_pipe_menu>"
 echo "<separator label=\"$UNREAD\"/>"
 echo "<item label=\"Go to Inbox\">
-       <action name=\"Execute\"><command>xdg-open https://gmail.com</command></action>
+       <action name=\"Execute\"><command>xdg-open http://inbox.google.com</command></action>
        </item>
        <separator/>"
-
-sed 1d $mailfile|while mail=$(readlines 2) # skipping first line
+sed 1d $mailfile|while mail=$(readlines 3)
 do
 
-    echo "<item label=\"$mail\"/>"
+    echo "<item label=\"$(echo "$mail"|head -2)\">
+    <action name=\"Execute\"><command>xdg-open $(echo "$mail"|tail -1)</command></action>
+    </item>"
 done
 echo "<separator/>
     <item label=\"Refresh Inbox\">
