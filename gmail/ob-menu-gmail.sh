@@ -56,7 +56,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 echo "<openbox_pipe_menu>"
 echo "<separator label=\"$UNREAD\"/>"
 echo "<item label=\"Go to Inbox\">
-       <action name=\"Execute\"><command>xdg-open http://inbox.google.com</command></action>
+       <action name=\"Execute\"><command>xdg-open http://gmail.com</command></action>
        </item>
        <separator/>"
 sed 1d $mailfile|while mail=$(readlines 3)

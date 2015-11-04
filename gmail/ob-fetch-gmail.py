@@ -18,7 +18,7 @@ import datetime
 import codecs
 import os
 from apscheduler.schedulers.blocking import BlockingScheduler
-import re
+
 EMAIL_ACCOUNT = "your.username@gmail.com"
 PASSWORD = "your.password"
 FOLDER = "INBOX"
