@@ -56,7 +56,7 @@ def process_mailbox():
         Subject = Subject[0]
         if (not (type(Subject) is str)):
             Subject=Subject.decode("utf-8")
-        Subject=Subject.replace('&','&amp;').replace('\"','&quot;').replace('\'','&apos;').replace('_','__')
+        Subject=Subject.replace('&','&amp;').replace('\"','&quot;').replace('\'','&apos;').replace('_','__').replace('\n',' ')
         #From=email.utils.parseaddr(msg['From'])
         # Writing Subject to the file
         mailfile.write("{0}. {1}\n".format(index+1, Subject))
